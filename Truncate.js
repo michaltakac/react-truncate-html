@@ -5,16 +5,17 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 const isServer = () => typeof window === 'undefined';
 
 class Truncate extends Component {
     static propTypes = {
-        ellipsis: React.PropTypes.string,
-        debounce: React.PropTypes.number,
-        responsive: React.PropTypes.bool,
-        lines: React.PropTypes.number,
-        portrait: React.PropTypes.number,
-        breakWord: React.PropTypes.bool
+        ellipsis: PropTypes.string,
+        debounce: PropTypes.number,
+        responsive: PropTypes.bool,
+        lines: PropTypes.number,
+        portrait: PropTypes.number,
+        breakWord: PropTypes.bool
     }
 
     static defaultProps = {
@@ -32,12 +33,12 @@ class Truncate extends Component {
         for (let key of Object.keys(Truncate.propTypes)) {
             delete passedProps[key];
         }
-        
+
         if(this.props.children) {
             console.error('react-truncate-html: We can\'t handle react children at the moment.\nYou\'re %crequired%c to pass dangerouslySetInnerHTML to set contents. Sorry!', 'font-style:italic', 'font-style:normal');
             return null;
         }
-        
+
         return (
             <span ref="paragraph" {...passedProps}/>
         );
@@ -79,7 +80,7 @@ class Truncate extends Component {
             this.add();
         }
     }
-    
+
     componentWillUnmount() {
         if(this.props.responsive && this._listener) {
             window.removeEventListener('resize', this._listener, false);
@@ -103,7 +104,7 @@ class Truncate extends Component {
             }
         };
     }
-    
+
     add() {
         if (this.props.responsive) {
             if (this.refs.paragraph.innerHTML !== this.cached) {

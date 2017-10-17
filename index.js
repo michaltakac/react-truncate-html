@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -93,8 +97,6 @@ var Truncate = function (_Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
-
             if (!isServer()) {
                 this.lines = {
                     props: this.props,
@@ -107,19 +109,17 @@ var Truncate = function (_Component) {
                 };
 
                 if (this.props.responsive) {
-                    (function () {
-                        _this2.cached = _this2.refs.paragraph.innerHTML;
-                        var debounce = void 0;
-                        var listener = function listener() {
-                            clearTimeout(debounce);
-                            debounce = setTimeout(function () {
-                                this.add();
-                            }.bind(this), this.props.debounce);
-                        };
-                        _this2._listener = listener.bind(_this2);
+                    this.cached = this.refs.paragraph.innerHTML;
+                    var debounce = void 0;
+                    var listener = function listener() {
+                        clearTimeout(debounce);
+                        debounce = setTimeout(function () {
+                            this.add();
+                        }.bind(this), this.props.debounce);
+                    };
+                    this._listener = listener.bind(this);
 
-                        window.addEventListener('resize', _this2._listener, false);
-                    })();
+                    window.addEventListener('resize', this._listener, false);
                 }
 
                 this.add();
@@ -331,12 +331,12 @@ var Truncate = function (_Component) {
 }(_react.Component);
 
 Truncate.propTypes = {
-    ellipsis: _react2.default.PropTypes.string,
-    debounce: _react2.default.PropTypes.number,
-    responsive: _react2.default.PropTypes.bool,
-    lines: _react2.default.PropTypes.number,
-    portrait: _react2.default.PropTypes.number,
-    breakWord: _react2.default.PropTypes.bool
+    ellipsis: _propTypes2.default.string,
+    debounce: _propTypes2.default.number,
+    responsive: _propTypes2.default.bool,
+    lines: _propTypes2.default.number,
+    portrait: _propTypes2.default.number,
+    breakWord: _propTypes2.default.bool
 };
 Truncate.defaultProps = {
     ellipsis: '…',
